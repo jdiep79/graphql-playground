@@ -4,6 +4,8 @@ const typeDefs = gql`
   type Query {
     tracksForHome: [Track!]!
     tracksForHomeFetch: [TrackFetch!]!
+    tracksForHomeError: [TrackError!]!
+    nullValue: String!
   }
 
   "A track is a group of Modules that teaches about a spefic topic"
@@ -37,6 +39,24 @@ const typeDefs = gql`
 
   "Author of a complete Track"
   type AuthorFetch {
+    id: ID!
+    name: String!
+    photo: String
+  }
+
+  "A track is a group of Modules that teaches about a spefic topic"
+  type TrackError {
+    id: ID!
+    "The track's title"
+    title: String!
+    author: AuthorError!
+    thumbnail: String
+    length: Int
+    modulesCount: Int
+  }
+
+  "Author of a complete Track"
+  type AuthorError {
     id: ID!
     name: String!
     photo: String

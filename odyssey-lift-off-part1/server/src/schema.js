@@ -3,6 +3,7 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
   type Query {
     tracksForHome: [Track!]!
+    track(id: ID!): Track
     tracksForHomeFetch: [TrackFetch!]!
     tracksForHomeError: [TrackError!]!
     nullValue: String!
@@ -17,6 +18,10 @@ const typeDefs = gql`
     thumbnail: String
     length: Int
     modulesCount: Int
+    description: String
+    numberOfViews: Int
+    modules: [Module!]!
+    module(id: ID!): Module
   }
 
   "Author of a complete Track"
@@ -24,6 +29,12 @@ const typeDefs = gql`
     id: ID!
     name: String!
     photo: String
+  }
+
+  type Module {
+    id: ID!
+    title: String!
+    length: Int
   }
 
   "A track is a group of Modules that teaches about a spefic topic"

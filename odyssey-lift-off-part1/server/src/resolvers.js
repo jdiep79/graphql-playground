@@ -8,6 +8,9 @@ const resolvers = {
     tracksForHome: (_parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getTracksForHome();
     },
+    track: (_parent, { id }, { dataSources }) => {
+      return dataSources.trackAPI.getTrack(id);
+    },
     tracksForHomeFetch: async (_parent, _args, { dataSources }) => {
       const baseUrl = 'https://odyssey-lift-off-rest-api.herokuapp.com';
       const res = await fetch(`${baseUrl}/tracks`);
@@ -33,6 +36,12 @@ const resolvers = {
   Track: {
     author: (parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getAuthor(parent.authorId);
+    },
+    modules: (parent, _args, { dataSources }) => {
+      return dataSources.trackAPI.getModules(parent.id);
+    },
+    module: (_, { id }, { dataSources }) => {
+      return dataSources.trackAPI.getModule(id);
     },
   },
   TrackFetch: {

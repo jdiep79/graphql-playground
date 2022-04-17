@@ -33,6 +33,26 @@ const resolvers = {
       ];
     },
   },
+  Mutation: {
+    incrementTrackViews: async (_parent, { id }, { dataSources }) => {
+      try {
+        const track = await dataSources.trackAPI.incrementTrackViews(id);
+        return {
+          code: 200,
+          success: true,
+          message: `Successfully incremented number of views for track ${id}`,
+          track,
+        };
+      } catch (err) {
+        return {
+          code: err.extensions.response.status,
+          success: false,
+          message: err.extensions.response.body,
+          track: null,
+        };
+      }
+    },
+  },
   Track: {
     author: (parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getAuthor(parent.authorId);

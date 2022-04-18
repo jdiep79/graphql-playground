@@ -10,6 +10,9 @@ const resolvers = {
         ? 'user is an admin'
         : 'user is a regular user';
     },
+    user: (_parent, { userInfo }) => {
+      return `${userInfo.name}: ${userInfo.sex}`;
+    },
     tracksForHome: (_parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getTracksForHome();
     },

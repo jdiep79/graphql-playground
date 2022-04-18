@@ -8,6 +8,12 @@ const typeDefs = gql`
     tracksForHomeError: [TrackError!]!
     nullValue: String!
     role(userRole: Role!): String!
+    user(userInfo: UserInfoInput!): String!
+  }
+
+  input UserInfoInput {
+    name: String!
+    sex: String!
   }
 
   type Mutation {

@@ -17,7 +17,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+    incrementTrackViews(id: ID!): Response!
   }
 
   enum Role {
@@ -25,7 +25,13 @@ const typeDefs = gql`
     USER
   }
 
-  type IncrementTrackViewsResponse {
+  interface Response {
+    code: Int!
+    success: Boolean!
+    message: String!
+  }
+
+  type IncrementTrackViewsResponse implements Response {
     code: Int!
     success: Boolean!
     message: String!

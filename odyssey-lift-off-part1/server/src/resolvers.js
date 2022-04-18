@@ -61,6 +61,16 @@ const resolvers = {
       }
     },
   },
+  Response: {
+    __resolveType(res) {
+      if (res.track) return 'IncrementTrackViewsResponse';
+    },
+    // https://stackoverflow.com/questions/50499900/writing-an-apollo-resolver-for-an-interface
+    code: () => {
+      console.log('code');
+      return 12344;
+    },
+  },
   Track: {
     author: (parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getAuthor(parent.authorId);

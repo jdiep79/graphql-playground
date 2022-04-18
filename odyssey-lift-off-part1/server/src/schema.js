@@ -7,10 +7,16 @@ const typeDefs = gql`
     tracksForHomeFetch: [TrackFetch!]!
     tracksForHomeError: [TrackError!]!
     nullValue: String!
+    role(userRole: Role!): String!
   }
 
   type Mutation {
     incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+  }
+
+  enum Role {
+    ADMIN
+    USER
   }
 
   type IncrementTrackViewsResponse {

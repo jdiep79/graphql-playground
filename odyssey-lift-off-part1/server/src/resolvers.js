@@ -5,6 +5,11 @@ const resolvers = {
     nullValue: () => {
       return null;
     },
+    role: (_parent, { userRole }) => {
+      return userRole === 'ADMIN'
+        ? 'user is an admin'
+        : 'user is a regular user';
+    },
     tracksForHome: (_parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getTracksForHome();
     },

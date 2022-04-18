@@ -63,6 +63,9 @@ const resolvers = {
     module: (_, { id }, { dataSources }) => {
       return dataSources.trackAPI.getModule(id);
     },
+    durationInSeconds: ({ length }) => {
+      return length;
+    },
   },
   TrackFetch: {
     author: async (parent, _args, { dataSources }) => {

@@ -5,7 +5,11 @@ const resolvers = {
     nullValue: () => {
       return null;
     },
+    gender: (parent) => {
+      return parent.prepend + 'male';
+    },
     role: (_parent, { userRole }) => {
+      console.log('getting role....');
       return userRole === 'ADMIN'
         ? 'user is an admin'
         : 'user is a regular user';
@@ -83,6 +87,11 @@ const resolvers = {
     },
     durationInSeconds: ({ length }) => {
       return length;
+    },
+    title: ({ title, prepend }) => {
+      console.log('prepend', prepend);
+      console.log('title', title);
+      return title;
     },
   },
   TrackFetch: {

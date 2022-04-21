@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  directive @upper(prepend: String!) on FIELD_DEFINITION | OBJECT
+
   type Query {
     tracksForHome: [Track!]!
     track(id: ID!): Track
@@ -9,6 +11,7 @@ const typeDefs = gql`
     nullValue: String!
     role(userRole: Role!): String!
     user(userInfo: UserInfoInput!): String!
+    gender: String! @upper(prepend: "gender: ")
   }
 
   input UserInfoInput {
@@ -39,7 +42,7 @@ const typeDefs = gql`
   }
 
   "A track is a group of Modules that teaches about a spefic topic"
-  type Track {
+  type Track @upper(prepend: "track: ") {
     id: ID!
     "The track's title"
     title: String!

@@ -70,7 +70,16 @@ const resolvers = {
       if (res.track) return 'IncrementTrackViewsResponse';
     },
     // https://stackoverflow.com/questions/50499900/writing-an-apollo-resolver-for-an-interface
-    code: () => {
+    code: (parent) => {
+      /**
+       * @notes
+       *
+       * The parent includes the code of 200.
+       * So that means incrementTrackViews mutation
+       * runs first. Since this child also returns the code,
+       * it uses this child's code instead.
+       */
+      console.log('parent', parent);
       console.log('code');
       return 12344;
     },
@@ -103,10 +112,25 @@ const resolvers = {
   },
   TrackError: {
     author: async (parent, _args, { dataSources }) => {
-      return {
-        id: '1',
-        name: null,
-      };
+      return parent;
+    },
+  },
+  AuthorError: {
+    id: () => {
+      return 1;
+    },
+    name: () => {
+      /**
+       * @notes
+       *
+       * Because of this required field returning null,
+       * the final data will return null even if the other
+       * fields were able to resolve
+       */
+      return null;
+    },
+    photo: () => {
+      return 'this is a photo';
     },
   },
 };

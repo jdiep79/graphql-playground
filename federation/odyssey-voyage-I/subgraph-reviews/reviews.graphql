@@ -1,0 +1,38 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0",
+        import: ["@key"])
+
+
+type Query {
+	latestReviews: [Review!]!
+}
+
+type Mutation {
+	submitReview(locationReview: LocationReviewInput): SubmitReviewResponse
+}
+
+type Review @key(fields: "location") {
+	id: ID!
+	comment: String
+	rating: Int
+	location: Location
+}
+
+input LocationReviewInput {
+	comment: String!
+	rating: String!
+	locationId: String!
+}
+
+interface Response {
+	code: Int!
+	success: Boolean!
+	message: String!
+}
+
+type SubmitReviewResponse implements Response {
+	code: Int!
+	success: Boolean!
+	message: String!
+	locationReview: Review
+}

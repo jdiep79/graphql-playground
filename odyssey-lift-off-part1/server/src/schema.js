@@ -64,6 +64,10 @@ const typeDefs = gql`
     photo: String
   }
 
+  extend type Author {
+    bio: String!
+  }
+
   type Module {
     id: ID!
     title: String!

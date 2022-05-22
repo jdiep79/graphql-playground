@@ -85,8 +85,11 @@ const resolvers = {
     },
   },
   Track: {
-    author: (parent, _args, { dataSources }) => {
-      return dataSources.trackAPI.getAuthor(parent.authorId);
+    author: async (parent, _args, { dataSources }) => {
+      return {
+        bio: 'this is the authors bio',
+        ...(await dataSources.trackAPI.getAuthor(parent.authorId)),
+      };
     },
     modules: (parent, _args, { dataSources }) => {
       return dataSources.trackAPI.getModules(parent.id);

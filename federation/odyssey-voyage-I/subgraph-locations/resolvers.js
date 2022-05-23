@@ -7,6 +7,11 @@ const resolvers = {
       return dataSources.locationsAPI.getLocation(id);
     },
   },
+  Location: {
+    __resolveReference(ref, { dataSources }, _info) {
+      return dataSources.locationsAPI.getLocation(ref.id);
+    },
+  },
 };
 
 module.exports = resolvers;

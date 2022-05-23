@@ -15,6 +15,7 @@ type Review {
 	id: ID!
 	comment: String
 	rating: Int
+	location: Location
 }
 
 input LocationReviewInput {

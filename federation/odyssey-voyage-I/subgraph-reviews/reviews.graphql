@@ -35,3 +35,7 @@ type SubmitReviewResponse implements Response {
 	message: String!
 	locationReview: Review
 }
+
+type Location @key(fields: "id", resolvable: false) {
+	id: ID!
+}

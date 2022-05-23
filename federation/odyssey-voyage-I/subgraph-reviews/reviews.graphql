@@ -11,11 +11,10 @@ type Mutation {
 	submitReview(locationReview: LocationReviewInput): SubmitReviewResponse
 }
 
-type Review @key(fields: "location") {
+type Review {
 	id: ID!
 	comment: String
 	rating: Int
-	location: Location
 }
 
 input LocationReviewInput {

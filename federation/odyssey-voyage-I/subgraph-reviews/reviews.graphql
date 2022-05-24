@@ -37,6 +37,8 @@ type SubmitReviewResponse implements Response {
 	locationReview: Review
 }
 
-type Location @key(fields: "id", resolvable: false) {
+type Location @key(fields: "id") {
 	id: ID!
+	reviewsForLocation: [Review!]!
+	overallRating: Float
 }

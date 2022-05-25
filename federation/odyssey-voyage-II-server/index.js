@@ -1,25 +1,10 @@
 const { ApolloServer, gql, AuthenticationError } = require('apollo-server');
-const { readFileSync } = require('fs');
-const axios = require('axios');
-
-const typeDefs = gql(readFileSync('./schema.graphql', { encoding: 'utf-8' }));
-const resolvers = require('./resolvers');
-const { BookingsDataSource, ReviewsDataSource, ListingsAPI, AccountsAPI, PaymentsAPI } = require('./services');
+const { ApolloGateway } = require('@apollo/gateway');
 
 require('dotenv').config();
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  dataSources: () => {
-    return {
-      bookingsDb: new BookingsDataSource(),
-      reviewsDb: new ReviewsDataSource(),
-      listingsAPI: new ListingsAPI(),
-      accountsAPI: new AccountsAPI(),
-      paymentsAPI: new PaymentsAPI(),
-    };
-  },
+  gateway: new ApolloGateway(),
   context: async ({ req }) => {
     const token = req.headers.authorization || '';
     const userId = token.split(' ')[1]; // get the user name after 'Bearer '

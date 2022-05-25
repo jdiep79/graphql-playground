@@ -1,5 +1,6 @@
 const { ApolloServer, gql, AuthenticationError } = require('apollo-server');
 const { ApolloGateway, RemoteGraphQLDataSource } = require('@apollo/gateway');
+const axios = require('axios');
 
 require('dotenv').config();
 

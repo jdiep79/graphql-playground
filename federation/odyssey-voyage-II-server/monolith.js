@@ -1,6 +1,5 @@
 const { ApolloServer, gql, AuthenticationError } = require('apollo-server');
 const { readFileSync } = require('fs');
-const axios = require('axios');
 
 const typeDefs = gql(readFileSync('./schema.graphql', { encoding: 'utf-8' }));
 const resolvers = require('./resolvers');
@@ -26,6 +25,12 @@ const server = new ApolloServer({
       reviewsDb: new ReviewsDataSource(),
       listingsAPI: new ListingsAPI(),
       paymentsAPI: new PaymentsAPI(),
+    };
+  },
+  context: ({ req }) => {
+    return {
+      userId: req.headers.userid,
+      userRole: req.headers.userrole,
     };
   },
 });

@@ -1,0 +1,40 @@
+const { ApolloServer, gql, AuthenticationError } = require('apollo-server');
+const { readFileSync } = require('fs');
+const axios = require('axios');
+
+const typeDefs = gql(readFileSync('./schema.graphql', { encoding: 'utf-8' }));
+const resolvers = require('./resolvers');
+const {
+  BookingsDataSource,
+  ReviewsDataSource,
+  ListingsAPI,
+  AccountsAPI,
+  PaymentsAPI,
+} = require('./services');
+
+const { buildSubgraphSchema } = require('@apollo/subgraph');
+
+const server = new ApolloServer({
+  schema: buildSubgraphSchema({
+    typeDefs,
+    resolvers,
+  }),
+  dataSources: () => {
+    return {
+      accountsAPI: new AccountsAPI(),
+      bookingsDb: new BookingsDataSource(),
+      reviewsDb: new ReviewsDataSource(),
+      listingsAPI: new ListingsAPI(),
+      paymentsAPI: new PaymentsAPI(),
+    };
+  },
+});
+
+server
+  .listen({ port: 4001 })
+  .then(({ url }) => {
+    console.log(`🚀 Monolith subgraph running at ${url}`);
+  })
+  .catch((err) => {
+    console.error(err);
+  });

@@ -1,0 +1,28 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0",
+        import: ["@key"])
+        
+type Query {
+  example: String
+}
+
+interface User {
+  id: ID!
+  "The user's first and last name"
+  name: String!
+  "The user's profile photo URL"
+  profilePicture: String!
+}
+
+type Host implements User @key(fields: "id") {
+  id: ID!
+  name: String!
+  profilePicture: String!
+  profileDescription: String!
+}
+
+type Guest implements User @key(fields: "id") {
+  id: ID!
+  name: String!
+  profilePicture: String!
+}

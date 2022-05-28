@@ -4,10 +4,17 @@ extend schema
 
 
 type Query {
+	### Make sure to remove this from this subgraph since 
+	### the accounts subgraph handles this. If you don't
+	### then there will be an error. If you want to have
+	### multiple subgraphs resolve a field for optimization
+	### then use the @shareable directive, make sure to import
+	### this as well above. Make sure it makes sense for your
+	### business domain first before making it shareable!
   ### User accounts
-  user(id: ID!): User
-  "Currently logged-in user"
-  me: User!
+  # user(id: ID!): User
+  # "Currently logged-in user"
+  # me: User!
 
   ### Listings
   "A curated array of listings to feature on the homepage"
@@ -91,6 +98,7 @@ type Guest implements User @key(fields: "id") {
   "Amount of money in the guest's wallet"
   funds: Float!
 }
+
 
 "Fields that can be updated"
 input UpdateProfileInput {

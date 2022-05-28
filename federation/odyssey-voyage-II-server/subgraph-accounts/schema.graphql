@@ -4,6 +4,11 @@ extend schema
         
 type Query {
   example: String
+
+  ### User accounts
+  user(id: ID!): User
+  "Currently logged-in user"
+  me: User!
 }
 
 interface User {

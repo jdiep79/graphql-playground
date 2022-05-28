@@ -3,7 +3,6 @@ const authErrMessage = '*** you must be logged in ***';
 
 const resolvers = {
   Query: {
-    example: () => 'Hello World!',
     user: async (_, { id }, { dataSources }) => {
       const user = await dataSources.accountsAPI.getUser(id);
       if (!user) {
